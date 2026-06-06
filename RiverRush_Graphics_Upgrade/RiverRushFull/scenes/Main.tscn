@@ -1,0 +1,279 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/MainGame.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/Background.gd" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="3_player"]
+[ext_resource type="Script" path="res://scripts/Spawner.gd" id="4_spawner"]
+[ext_resource type="Script" path="res://scripts/HUD.gd" id="5_hud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start"]
+bg_color = Color(0.02, 0.04, 0.09, 0.9)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_go"]
+bg_color = Color(0.02, 0.04, 0.09, 0.9)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lu"]
+bg_color = Color(0.02, 0.04, 0.09, 0.9)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("2_bg")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(110, 230)
+
+[node name="Spawner" type="Node2D" parent="."]
+script = ExtResource("4_spawner")
+
+[node name="SpawnTimer" type="Timer" parent="Spawner"]
+wait_time = 2.2
+one_shot = false
+autostart = false
+
+[node name="PowerupTimer" type="Timer" parent="Spawner"]
+wait_time = 8.5
+one_shot = false
+autostart = false
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_hud")
+
+[node name="TopBar" type="HBoxContainer" parent="HUD"]
+anchor_right = 1.0
+offset_bottom = 54.0
+theme_override_constants/separation = 0
+
+[node name="ScoreBox" type="VBoxContainer" parent="HUD/TopBar"]
+custom_minimum_size = Vector2(120, 0)
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD/TopBar/ScoreBox"]
+text = "SCORE"
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+horizontal_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="HUD/TopBar/ScoreBox"]
+text = "0"
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+
+[node name="HealthBar" type="HBoxContainer" parent="HUD/TopBar"]
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="LevelBox" type="VBoxContainer" parent="HUD/TopBar"]
+custom_minimum_size = Vector2(120, 0)
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="LevelLabel" type="Label" parent="HUD/TopBar/LevelBox"]
+text = "LEVEL"
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+horizontal_alignment = 1
+
+[node name="LevelValue" type="Label" parent="HUD/TopBar/LevelBox"]
+text = "1"
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+
+[node name="LevelBanner" type="Label" parent="HUD"]
+anchor_right = 1.0
+offset_top = 56.0
+offset_bottom = 78.0
+text = "CALM WATERS"
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1.0, 0.8, 0.16, 1)
+horizontal_alignment = 1
+
+[node name="ProgressRow" type="HBoxContainer" parent="HUD"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+theme_override_constants/separation = 6
+
+[node name="StartIcon" type="Label" parent="HUD/ProgressRow"]
+text = "⛵"
+theme_override_font_sizes/font_size = 14
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/ProgressRow"]
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 100.0
+value = 0.0
+show_percentage = false
+
+[node name="EndIcon" type="Label" parent="HUD/ProgressRow"]
+text = "🏝️"
+theme_override_font_sizes/font_size = 14
+
+[node name="StaminaRow" type="HBoxContainer" parent="HUD"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -46.0
+offset_right = 210.0
+offset_bottom = -26.0
+theme_override_constants/separation = 6
+
+[node name="StaminaLabel" type="Label" parent="HUD/StaminaRow"]
+text = "STAMINA"
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+
+[node name="StaminaBar" type="ProgressBar" parent="HUD/StaminaRow"]
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="UIScreens" type="CanvasLayer" parent="."]
+
+[node name="StartScreen" type="Panel" parent="UIScreens"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_start")
+
+[node name="Center" type="CenterContainer" parent="UIScreens/StartScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="UIScreens/StartScreen/Center"]
+custom_minimum_size = Vector2(420, 0)
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="UIScreens/StartScreen/Center/VBox"]
+text = "⛵  RIVER RUSH"
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+
+[node name="Sub" type="Label" parent="UIScreens/StartScreen/Center/VBox"]
+text = "Survival on the Nile"
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1.0, 0.8, 0.16, 1)
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="UIScreens/StartScreen/Center/VBox"]
+text = "A storm destroyed Kofi's boat.\nNavigate the river to reach Sanctuary Island!"
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.78, 0.82, 0.85, 1)
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Gap" type="Control" parent="UIScreens/StartScreen/Center/VBox"]
+custom_minimum_size = Vector2(0, 8)
+
+[node name="StartButton" type="Button" parent="UIScreens/StartScreen/Center/VBox"]
+text = "▶   START ROWING"
+theme_override_font_sizes/font_size = 16
+custom_minimum_size = Vector2(260, 48)
+
+[node name="Hint" type="Label" parent="UIScreens/StartScreen/Center/VBox"]
+text = "W / S  or  ↑ ↓  to steer"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.45, 0.45, 0.45, 1)
+horizontal_alignment = 1
+
+[node name="GameOverScreen" type="Panel" parent="UIScreens"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_go")
+
+[node name="Center" type="CenterContainer" parent="UIScreens/GameOverScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="UIScreens/GameOverScreen/Center"]
+custom_minimum_size = Vector2(420, 0)
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="UIScreens/GameOverScreen/Center/VBox"]
+text = "💀  GAME OVER"
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(0.94, 0.32, 0.32, 1)
+horizontal_alignment = 1
+
+[node name="FinalScore" type="Label" parent="UIScreens/GameOverScreen/Center/VBox"]
+text = "Score: 0"
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1.0, 0.8, 0.16, 1)
+horizontal_alignment = 1
+
+[node name="BestScore" type="Label" parent="UIScreens/GameOverScreen/Center/VBox"]
+text = "Best: 0"
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.78, 0.82, 0.85, 1)
+horizontal_alignment = 1
+
+[node name="FinalLevel" type="Label" parent="UIScreens/GameOverScreen/Center/VBox"]
+text = "Level: 1"
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.78, 0.82, 0.85, 1)
+horizontal_alignment = 1
+
+[node name="Gap" type="Control" parent="UIScreens/GameOverScreen/Center/VBox"]
+custom_minimum_size = Vector2(0, 8)
+
+[node name="RestartButton" type="Button" parent="UIScreens/GameOverScreen/Center/VBox"]
+text = "↺   TRY AGAIN"
+theme_override_font_sizes/font_size = 16
+custom_minimum_size = Vector2(260, 48)
+
+[node name="LevelUpScreen" type="Panel" parent="UIScreens"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lu")
+
+[node name="Center" type="CenterContainer" parent="UIScreens/LevelUpScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="UIScreens/LevelUpScreen/Center"]
+custom_minimum_size = Vector2(420, 0)
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="LevelNum" type="Label" parent="UIScreens/LevelUpScreen/Center/VBox"]
+text = "2"
+theme_override_font_sizes/font_size = 64
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+
+[node name="LevelName" type="Label" parent="UIScreens/LevelUpScreen/Center/VBox"]
+text = "THE RAPIDS"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1.0, 0.8, 0.16, 1)
+horizontal_alignment = 1
+
+[node name="LevelDesc" type="Label" parent="UIScreens/LevelUpScreen/Center/VBox"]
+text = "The water moves faster. Crocs grow bolder!"
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.78, 0.82, 0.85, 1)
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Gap" type="Control" parent="UIScreens/LevelUpScreen/Center/VBox"]
+custom_minimum_size = Vector2(0, 8)
+
+[node name="ContinueButton" type="Button" parent="UIScreens/LevelUpScreen/Center/VBox"]
+text = "▶   CONTINUE"
+theme_override_font_sizes/font_size = 16
+custom_minimum_size = Vector2(260, 48)
+
+[connection signal="pressed" from="UIScreens/StartScreen/Center/VBox/StartButton" to="." method="start_game"]
+[connection signal="pressed" from="UIScreens/GameOverScreen/Center/VBox/RestartButton" to="." method="restart_game"]
+[connection signal="pressed" from="UIScreens/LevelUpScreen/Center/VBox/ContinueButton" to="." method="continue_game"]
