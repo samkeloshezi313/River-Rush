@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/Log.gd" id="1_log"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_log"]
+size = Vector2(82, 18)
+
+[node name="Log" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_log")
